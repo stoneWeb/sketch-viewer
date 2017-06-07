@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html class="electron">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>sketch-viewer</title>
+
+    <style>
+        .app-close, .app-min{
+            height: 16px;
+            width: 16px;
+            text-align: center;
+            cursor: pointer;
+            position: absolute;
+            top: 6px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            overflow: hidden;
+            z-index: 100000;
+            -webkit-app-region: no-drag;
+        }
+        .app-min{
+            line-height: 14px;
+            left: 35px;
+            font-size: 12px;
+            background-color: #fdbc40;
+        }
+        .app-close{
+            left: 10px;
+            line-height: 14px;
+            font-size: 14px;
+            background-color: #fc625d;
+        }
+        .app-close i {
+            font-size: 13px;
+        }
+        .app-min i {
+            font-size: 15px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <span class="app-min"><i class="iconfont icon-minus"></span>
+    <span class="app-close"><i class="iconfont icon-close"></span>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+</body>
+<script>
+        var app = (function(){
+        const {shell, remote, dialog} = require('electron');
+        const win = remote.getCurrentWindow();
+        return {
+                open: function(url){
+                    shell.openExternal(url)
+                },
+                minimize: function(){
+                    win.minimize()
+                },
+                closewin: function(){
+                    win.close()
+                },
+                dialog: remote.dialog
+            }
+        })();
+        const minBtn = document.querySelector('.app-min');
+        const closeBtn = document.querySelector('.app-close');
+        minBtn.addEventListener('click', () => {
+            app.minimize()
+        }, !1)
+        closeBtn.addEventListener('click', () => {
+            app.closewin()
+        }, !1)
+    </script>
+</html>
